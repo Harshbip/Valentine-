@@ -89,7 +89,8 @@
     </div>
   </div>
 
-  <audio id="loveSong" src="love-song.mp3"></audio>
+  <!-- 🎵 Music File -->
+  <audio id="loveSong" src="love-song.mp3" preload="auto"></audio>
 
   <script>
     const yesBtn = document.getElementById("yesBtn");
@@ -113,7 +114,11 @@
     noBtn.addEventListener("click", teaseButtons);
 
     yesBtn.addEventListener("click", function () {
-      song.play().catch(()=>{});
+      if (song) {
+        song.currentTime = 0;
+        song.volume = 1;
+        song.play().catch(() => {});
+      }
 
       document.body.innerHTML =
         '<div class="final-message">💖 Thank you for choosing me Miss Bipasha 😍<br><br>You won\'t be disappointed 😊</div>';
