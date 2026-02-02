@@ -1,7 +1,99 @@
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const noBtn = document.getElementById("noBtn");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Be My Valentine?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px 25px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      width: 320px;
+    }
+
+    h1 {
+      color: #ff4d6d;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    button {
+      padding: 12px 22px;
+      font-size: 16px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background: #ddd;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      color: #ff4d6d;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    .final-message {
+      text-align: center;
+      font-size: 26px;
+      color: white;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Will you be my Valentine? 💖</h1>
+    <div class="buttons">
+      <button id="yesBtn">Yes 😍</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+  </div>
+
+  <audio id="loveSong" src="love-song.mp3"></audio>
+
+  <script>
     const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
     const song = document.getElementById("loveSong");
 
     let yesScale = 1;
@@ -12,7 +104,7 @@
       yesBtn.style.transform = "scale(" + yesScale + ")";
 
       noScale -= 0.08;
-      if (noScale < 0.4) noScale = 0.4;
+      if (noScale < 0.5) noScale = 0.5;
       noBtn.style.transform = "scale(" + noScale + ")";
     }
 
@@ -21,15 +113,12 @@
     noBtn.addEventListener("click", teaseButtons);
 
     yesBtn.addEventListener("click", function () {
-      if (song) {
-        song.play().catch(() => {});
-      }
+      song.play().catch(()=>{});
 
       document.body.innerHTML =
-        '<div class="final-message">💖 Thank you for choosing me Miss Bipasha 😍<br><br>You won’t be disappointed 😊</div>';
+        '<div class="final-message">💖 Thank you for choosing me Miss Bipasha 😍<br><br>You won\'t be disappointed 😊</div>';
 
-      document.body.style.background =
-        "linear-gradient(135deg, #ff4d6d, #ff758c)";
+      document.body.style.background = "linear-gradient(135deg, #ff4d6d, #ff758c)";
     });
 
     function createHeart() {
@@ -37,12 +126,14 @@
       heart.className = "heart";
       heart.innerHTML = "💖";
       heart.style.left = Math.random() * 100 + "vw";
-      heart.style.fontSize = Math.random() * 20 + 15 + "px";
-      heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+      heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+      heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 6000);
     }
 
     setInterval(createHeart, 300);
-  });
-</script>
+  </script>
+
+</body>
+</html>
