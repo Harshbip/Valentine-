@@ -1,0 +1,61 @@
+<script>
+  const noBtn = document.getElementById("noBtn");
+  const yesBtn = document.getElementById("yesBtn");
+  const card = document.getElementById("card");
+  const song = document.getElementById("loveSong");
+
+  let yesScale = 1;
+  let noScale = 1;
+
+  function teaseButtons() {
+    // Make YES bigger
+    yesScale += 0.1;
+    yesBtn.style.transform = `scale(${yesScale})`;
+
+    // Make NO smaller (but not invisible)
+    noScale -= 0.08;
+    if (noScale < 0.4) noScale = 0.4;
+    noBtn.style.transform = `scale(${noScale})`;
+  }
+
+  // When NO is hovered (desktop)
+  noBtn.addEventListener("mouseenter", teaseButtons);
+
+  // When NO is touched (mobile)
+  noBtn.addEventListener("touchstart", teaseButtons);
+
+  // If NO is somehow clicked
+  noBtn.addEventListener("click", teaseButtons);
+
+  yesBtn.addEventListener("click", () => {
+    // Try playing music
+    song.volume = 1;
+    song.play().catch(() => {
+      console.log("Autoplay blocked, but that's okay ❤️");
+    });
+
+    document.body.innerHTML = `
+      <div class="final-message">
+        💖 Thank you for choosing me Miss Bipasha 😍<br><br>
+        You won't be disappointed 😊
+      </div>
+    `;
+
+    document.body.style.background = "linear-gradient(135deg, #ff4d6d, #ff758c)";
+  });
+
+  // Floating hearts
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 6000);
+  }
+
+  setInterval(createHeart, 300);
+</script>
